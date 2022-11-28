@@ -114,7 +114,7 @@ public class PriorityQueue<E> implements Queue<E> {
         //将队列的尾元素设置为null
         queue[s] = null;
         if (s != 0) {
-            //如果队列还有元素
+            //如果队列还有元素，则进行元素下沉
             siftDown(0, x);
         }
         return result;
