@@ -3,6 +3,9 @@ package cn.onenine.leetcode;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 两数之和 leetcode 第1题
+ */
 public class TwoNumSum {
 
     /**
