@@ -2,7 +2,7 @@ package cn.onenine.leetcode;
 
 /**
  * Description：反转链表
- *  leetcode 206题 链接：https://leetcode.cn/problems/reverse-linked-list/description/
+ * leetcode 206题 链接：https://leetcode.cn/problems/reverse-linked-list/description/
  *
  * @author li.hongjian
  * @email lhj502819@163.com
@@ -21,11 +21,9 @@ public class Reverse_linked_list {
      * tempNext = 2.next=3
      * 2.next -> head 1
      *
-     * @param head
-     * @return
      */
     public static ListNode reverseList(ListNode head) {
-        if(head == null || head.next == null){
+        if (head == null || head.next == null) {
             return head;
         }
 
@@ -38,7 +36,7 @@ public class Reverse_linked_list {
             ListNode oldNext = curNode.next;
             curNode.next = prev;
             prev = curNode;
-            if(oldNext == null)
+            if (oldNext == null)
                 break;
             curNode = oldNext;
         }
@@ -49,8 +47,46 @@ public class Reverse_linked_list {
         ListNode head = new ListNode(1);
         ListNode next = new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5))));
         head.next = next;
-        ListNode listNode = reverseList(head);
+        ListNode listNode = reverseList2(head);
         System.out.println(listNode);
     }
+
+
+    /**
+     * 最优解
+     */
+    public static ListNode reverseList2(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode curNode = head;
+        ListNode prev = null;
+
+        while (curNode != null) {
+            ListNode next = curNode.next;
+            curNode.next = prev;
+            prev = curNode;
+            curNode = next;
+        }
+
+        return prev;
+    }
+
+    /**
+     * 投机取巧方式
+     */
+    public static ListNode reverseList3(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode res = null;
+        for (ListNode x = head;x !=null;x=x.next){
+            res = new ListNode(x.val,res);
+        }
+        return res;
+    }
+
 }
 
