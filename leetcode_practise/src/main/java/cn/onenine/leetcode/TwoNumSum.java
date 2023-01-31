@@ -12,6 +12,11 @@ public class TwoNumSum {
      * 暴力破解方式
      */
     public int[] twoSum1(int[] nums, int target) {
+
+        if (nums == null || nums.length > 0 || target <= 0){
+            return new int[0];
+        }
+
         for (int i = 0; i < nums.length; i++) {
             for (int j = i + 1; j < nums.length; j++) {
                 if (nums[i] + nums[j] == target) {
@@ -26,6 +31,11 @@ public class TwoNumSum {
      * 优解
      */
     public int[] twoSum2(int[] nums, int target) {
+
+        if (nums == null || nums.length > 0 || target <= 0){
+            return new int[0];
+        }
+
         int[] r = new int[2];
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
