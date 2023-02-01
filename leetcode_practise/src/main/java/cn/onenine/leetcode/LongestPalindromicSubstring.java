@@ -112,8 +112,4 @@ public class LongestPalindromicSubstring {
         return s.substring(left + 1, right);
     }
 
-    public static void main(String[] args) {
-        System.out.println(longestPalindrome3("abaababa"));
-    }
-
 }
