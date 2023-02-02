@@ -9,6 +9,15 @@ package cn.onenine.leetcode;
  */
 public class QuickSort {
 
+    public static void main(String[] args) {
+        int[] ints = {4, 2, 14, 5, 2};
+        QuickSort quickSort = new QuickSort();
+        int[] ints1 = quickSort.sortArray(ints);
+        for (int i : ints1) {
+            System.out.printf(i + "");
+        }
+    }
+
     public int[] sortArray(int[] array) {
 
         quickSort(array, 0, array.length - 1);
@@ -16,6 +25,11 @@ public class QuickSort {
     }
 
     public void quickSort(int[] nums, int left, int right) {
+
+        if (left >= right) {
+            return;
+        }
+
         int pivotIndex = partition(nums, left, right);
         //左分区排序
         quickSort(nums, left, pivotIndex - 1);
