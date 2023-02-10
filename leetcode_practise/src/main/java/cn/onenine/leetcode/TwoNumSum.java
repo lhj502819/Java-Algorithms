@@ -13,7 +13,7 @@ public class TwoNumSum {
      */
     public int[] twoSum1(int[] nums, int target) {
 
-        if (nums == null || nums.length > 0 || target <= 0){
+        if (nums == null || nums.length > 0 || target <= 0) {
             return new int[0];
         }
 
@@ -32,22 +32,20 @@ public class TwoNumSum {
      */
     public int[] twoSum2(int[] nums, int target) {
 
-        if (nums == null || nums.length > 0 || target <= 0){
+        if (nums == null || nums.length > 0 ) {
             return new int[0];
         }
 
-        int[] r = new int[2];
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            int temp = target - nums[i];
-            if (map.containsKey(temp)) {
-                r[0] = i;
-                r[1] = map.get(temp);
+        Map<Integer, Integer> hashtable = new HashMap<>();
+        for (int i = 0; i < nums.length; ++i) {
+            if (hashtable.containsKey(target - nums[i])) {
+                return new int[]{hashtable.get(target - nums[i]), i};
             }
-            map.put(nums[i], i);
+            hashtable.put(nums[i], i);
         }
-        return r;
 
+
+        return new int[0];
     }
 
     public static void main(String[] args) {

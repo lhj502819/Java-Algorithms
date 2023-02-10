@@ -1,6 +1,8 @@
 package cn.onenine.javaAlgorithms.sort;
 
 import java.util.Arrays;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.LongAdder;
 
 /**
  * Description：归并排序 ，https://www.bilibili.com/video/BV1Pt4y197VZ/?spm_id_from=333.337.search-card.all.click&vd_source=77f5aa3be4c6c3fc2d3d0595fefc7bfc
@@ -12,6 +14,8 @@ import java.util.Arrays;
 public class MergeSort {
 
     public static void main(String[] args) {
+        ConcurrentHashMap<String, LongAdder> map = new ConcurrentHashMap<>();
+        map.put("1",new LongAdder());
         int[] arr = {5, 3, 8, 6, 4};
         mergeSort(arr);
         System.out.printf(Arrays.toString(arr));
