@@ -1,9 +1,6 @@
 package cn.onenine.leetcode;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Description：无重复字符的最长子串 leetcode 第3题
@@ -12,7 +9,7 @@ import java.util.Set;
  * @email lhj502819@163.com
  * @since 2023/2/1 20:20
  */
-public class LengthOfLongestSubstring {
+public class LeetCode03_LengthOfLongestSubstring {
 
     /**
      * 有问题版本
@@ -31,6 +28,7 @@ public class LengthOfLongestSubstring {
         }
         return r;
     }
+
 
     /**
      * 滑动窗口逻辑
@@ -71,6 +69,33 @@ public class LengthOfLongestSubstring {
     }
 
 
+    /**
+     * 左程云讲解
+     */
+    public int lengthOfLongestSubstring3(String s) {
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+
+        int[] map = new int[256];
+        Arrays.fill(map, -1);
+
+        int pre = -1;
+        int maxLength = 0;
+        for (int i = 0; i < s.length(); i++) {
+            pre = Math.max(map[s.charAt(i)], pre);
+            maxLength = Math.max(i - pre, maxLength);
+            map[s.charAt(i)] = i;
+        }
+
+        return maxLength;
+
+    }
+
+    public static void main(String[] args) {
+        LeetCode03_LengthOfLongestSubstring leetCode03_lengthOfLongestSubstring = new LeetCode03_LengthOfLongestSubstring();
+        leetCode03_lengthOfLongestSubstring.lengthOfLongestSubstring3("abcabcbb");
+    }
 
 
 }

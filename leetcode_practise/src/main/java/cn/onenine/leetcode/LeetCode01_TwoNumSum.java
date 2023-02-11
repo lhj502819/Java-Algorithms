@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * 两数之和 leetcode 第1题
  */
-public class TwoNumSum {
+public class LeetCode01_TwoNumSum {
 
     /**
      * 暴力破解方式
@@ -49,7 +49,7 @@ public class TwoNumSum {
     }
 
     public static void main(String[] args) {
-        TwoNumSum twoNumSum = new TwoNumSum();
+        LeetCode01_TwoNumSum twoNumSum = new LeetCode01_TwoNumSum();
         int[] ints = twoNumSum.twoSum1(new int[]{2, 7, 11, 15}, 9);
         for (int o : ints) {
             System.out.println(o + ",");
