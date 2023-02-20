@@ -7,7 +7,7 @@ package cn.onenine.leetcode;
  * @email lhj502819@163.com
  * @since 2023/2/20 21:01
  */
-public class leetcode07_ReverseInteger {
+public class LeetCode07_ReverseInteger {
 
     public int reverse(int x) {
         //不管正数还是负数，都当做负数处理
