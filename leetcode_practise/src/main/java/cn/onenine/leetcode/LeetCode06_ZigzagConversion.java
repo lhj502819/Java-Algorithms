@@ -7,7 +7,7 @@ package cn.onenine.leetcode;
  * @email lhj502819@163.com
  * @since 2023/2/1 23:03
  */
-public class ZigzagConversion {
+public class LeetCode06_ZigzagConversion {
 
     /**
      * 通过flag控制走向，每一层都有一个String，最终将所有的String拼在一起
@@ -24,7 +24,7 @@ public class ZigzagConversion {
             ss[i] = new StringBuilder();
         }
 
-        //如果是1则往下走  如果是-1则网上走
+        //如果是1则往下走  如果是-1则往上走
         int flag = 1;
         int line = 0;
         for (int i = 0; i < s.length(); i++) {

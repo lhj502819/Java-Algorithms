@@ -7,7 +7,7 @@ package cn.onenine.leetcode;
  * @email lhj502819@163.com
  * @since 2023/2/19 13:47
  */
-public class LeetCode05LongestCallbackSubstringByManacher {
+public class LeetCode05_LongestCallbackSubstringByManacher {
 
     public static String  manacher(String s) {
         if (s == null || s.length() == 0) {

@@ -87,5 +87,53 @@ public class ReviewPractise {
 
         return maxLength;
     }
+
+
+    /**
+     * N字形变化
+     */
+    public String convert(String s, int numRows) {
+        if (s == null || s.length() == 0) {
+            return s;
+        }
+
+        if (numRows == 1) {
+            return s;
+        }
+
+        StringBuilder[] sbs = new StringBuilder[numRows];
+        for (int i = 0; i < numRows; i++) {
+            sbs[i] = new StringBuilder();
+        }
+
+        //PAYPALISHIRING
+        //0  1  2
+        //P  A  Y
+        int flag = 1;
+        int lineNum = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (lineNum == numRows - 1) {
+                flag = -1;
+            }
+
+            if (lineNum == 0){
+                flag = 1;
+            }
+
+            sbs[lineNum].append(s.charAt(i));
+
+            lineNum += flag;
+        }
+
+        StringBuilder res = new StringBuilder();
+
+        for (StringBuilder sb : sbs) {
+            res.append(sb);
+        }
+
+        return res.toString();
+    }
+
+
 }
 
