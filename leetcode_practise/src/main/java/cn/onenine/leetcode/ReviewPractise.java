@@ -1,5 +1,6 @@
 package cn.onenine.leetcode;
 
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -116,7 +117,7 @@ public class ReviewPractise {
                 flag = -1;
             }
 
-            if (lineNum == 0){
+            if (lineNum == 0) {
                 flag = 1;
             }
 
@@ -132,6 +133,79 @@ public class ReviewPractise {
         }
 
         return res.toString();
+    }
+
+    public int reverse(int x) {
+        boolean neg = x >>> 31 == 1;
+        x = neg ? x : -x;
+
+        int m = Integer.MIN_VALUE / 10;
+        int o = Integer.MIN_VALUE % 10;
+
+        int res = 0;
+        while (x != 0) {
+            if (res < m || res == m && x % 10 < o) {
+                return 0;
+            }
+            //654
+            res = res * 10 + x % 10;
+
+            x /= 10;
+        }
+
+        return neg ? res : Math.abs(res);
+
+    }
+
+    public int manacher(String s) {
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+
+        char[] str = manacherStr(s);
+
+        //中心点
+        int C = -1;
+        //回文串右边界 + 1
+        int R = -1;
+        //存放每个元素的回文串半径
+        int[] arr = new int[str.length];
+        int maxLength = 0;
+
+        //最大回文子串的中心坐标
+        int mid = 0;
+        for (int i = 0; i < str.length; i++) {
+
+            arr[i] = R > i ? Math.min(arr[C * 2 - i], R - i) : 1;
+
+            while (i - arr[i] > -1 && i + arr[i] < str.length) {
+                if (str[i - arr[i]] == str[i + arr[i]]) {
+                    arr[i] = arr[i] + 1;
+                } else {
+                    break;
+                }
+            }
+
+            if (i + arr[i] > R) {
+                R = i + arr[i];
+                C = i;
+            }
+            if (maxLength < arr[i]) {
+                mid = i;
+                maxLength = arr[i];
+            }
+        }
+        //a#b#c#d#d#c#
+        return maxLength - 1;
+
+    }
+
+    public char[] manacherStr(String s) {
+        String res = "#";
+        for (int i = 0; i < s.length(); i++) {
+            res += s.charAt(i) + "#";
+        }
+        return res.toCharArray();
     }
 
 
