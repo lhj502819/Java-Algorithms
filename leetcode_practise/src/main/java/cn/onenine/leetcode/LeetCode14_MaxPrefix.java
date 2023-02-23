@@ -25,10 +25,9 @@ public class LeetCode14_MaxPrefix {
 
             int minLength = Math.min(maxPrefix.length(),strs[i].length());
             maxPrefix = maxPrefix.substring(0,minLength);
-
             strs[i] = strs[i].substring(0,minLength);
             for (int j = 0; j < strs[i].length(); j++) {
-                if ((maxPrefix.charAt(j) != strs[i].charAt(j))) {
+                if (maxPrefix.charAt(j) != strs[i].charAt(j)) {
                     maxPrefix = maxPrefix.substring(0, j);
                     break;
                 }
@@ -36,6 +35,10 @@ public class LeetCode14_MaxPrefix {
         }
 
         return maxPrefix;
+    }
+
+    public static void main(String[] args) {
+        System.out.println((2 << 16));
     }
 
 }

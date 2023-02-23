@@ -209,5 +209,140 @@ public class ReviewPractise {
     }
 
 
+    /**
+     * 最多盛水面积
+     */
+    public int maxArea(int[] height) {
+        int maxArea = 0;
+        int i = 0;
+        int j = height.length - 1;
+        while (i < j) {
+            maxArea = Math.max((j - i) * Math.min(height[i], height[j]), maxArea);
+
+            if (height[i] < height[j]) {
+                i++;
+            } else {
+                j--;
+            }
+        }
+        return maxArea;
+    }
+
+
+    /**
+     * 数字转罗马数
+     */
+    public String intToRoman(int num) {
+
+        /**
+         * 字符          数值
+         * I             1
+         * V             5
+         * X             10
+         * L             50
+         * C             100
+         * D             500
+         * M             1000
+         */
+        String[][] strings = {
+                {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"},
+                {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"},
+                {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"},
+                {"", "M", "MM", "MMM"}
+        };
+        String result = "";
+        //3566
+        result = strings[3][(num / 1000) % 10]
+                + strings[2][(num / 100) % 10]
+                + strings[1][(num / 10) % 10]
+                + strings[0][num % 10];
+
+
+        return result;
+
+    }
+
+
+    /**
+     * 字符          数值
+     * I             1
+     * V             5
+     * X             10
+     * L             50
+     * C             100
+     * D             500
+     * M             1000
+     * IVI
+     */
+    public int romanToInt(String s) {
+
+        int result = 0;
+
+
+        for (int i = 0; i < s.length(); i++) {
+            if (i == s.length() - 1) {
+                result += getInt(s.charAt(i));
+            } else {
+                int n1 = getInt(s.charAt(i));
+                int n2 = getInt(s.charAt(i + 1));
+                result += n1 >= n2 ? n1 : -n1;
+            }
+        }
+
+        return result;
+
+
+    }
+
+    public int getInt(char s) {
+        switch (s) {
+            case 'I':
+                return 1;
+            case 'V':
+                return 5;
+            case 'X':
+                return 10;
+            case 'L':
+                return 50;
+            case 'C':
+                return 100;
+            case 'D':
+                return 500;
+            case 'M':
+                return 1000;
+        }
+        return 0;
+    }
+
+    /**
+     * 最长公共前缀
+     */
+    public String longestCommonPrefix(String[] strs) {
+        if (strs == null || strs.length == 0) {
+            return "";
+        }
+
+        String maxPrefix = strs[0];
+
+        for (int i = 1; i < strs.length; i++) {
+            if (maxPrefix.length() == 0)
+                return "";
+
+            int min = Math.min(strs[i].length(), maxPrefix.length());
+            maxPrefix = maxPrefix.substring(0, min);
+            strs[i] = strs[i].substring(0, min);
+
+            for (int j = 0; j < strs[i].length(); j++) {
+                if (strs[i].charAt(j) != maxPrefix.charAt(j)) {
+                    maxPrefix = maxPrefix.substring(0, j);
+                    break;
+                }
+            }
+        }
+
+        return maxPrefix;
+    }
+
+
 }
 
