@@ -21,8 +21,6 @@ public class LeetCode15_ThreeNumSum {
             return res;
         }
 
-
-
         for (int i = 0; i < nums.length - 2; i++) {
             if (i == 0 || nums[i] != nums[i-1]){
                 List<List<Integer>> lists = twoNumSum(nums, i + 1, -nums[i]);

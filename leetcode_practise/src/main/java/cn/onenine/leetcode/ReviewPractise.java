@@ -1,9 +1,7 @@
 package cn.onenine.leetcode;
 
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Description：题目回顾
@@ -343,6 +341,104 @@ public class ReviewPractise {
         return maxPrefix;
     }
 
+
+    /**
+     * 三数之和
+     * 思路：
+     * 先思考二元组怎么求，给一个目标值，从数组中找出两个元素和为目标值的二元组
+     * 从两侧往中间推，假设左边下标为L，右边下标为R
+     * 当nums[L] + nums[R] < target时，L+1
+     * 当nums[L] + nums[R] > target时，R-1
+     * 当nums[L] + nums[R] == target时，判断nums[L]是否等于nums[L-1]，如果相等则跳过，因为[L-1]的结果已经遍历过
+     * 直到L==R停止
+     * <p>
+     * 求三元组的话其实就是从0遍历每个元素，nums[i] + nums[x] + nums[y] = target，那target - nums[i] =  nums[x] + nums[y]
+     * 其实还是在求二元组，只不过二元组的target是 三元组target-nums[i]
+     * 在这个题中，三元组的target为0
+     */
+    public List<List<Integer>> threeSum(int[] nums) {
+
+
+        if (nums == null || nums.length < 3) {
+            return new ArrayList<>();
+        }
+
+        Arrays.sort(nums);
+
+        List<List<Integer>> res = new ArrayList<>();
+
+        if (nums[0] > 0){
+            return res;
+        }
+
+
+        for (int i = 0; i < nums.length - 2; i++) {
+
+            if (i == 0 || nums[i] != nums[i - 1]) {
+                List<List<Integer>> lists = twoSum(nums, i + 1, -nums[i]);
+                for (List<Integer> list : lists) {
+                    list.add(0, nums[i]);
+                    res.add(list);
+                }
+            }
+        }
+
+        return res;
+
+    }
+
+    public List<List<Integer>> twoNumSum(int[] nums, int begin, int target) {
+
+        List<List<Integer>> res = new ArrayList<>();
+
+        int L = begin;
+        int R = nums.length - 1;
+        while (L < R) {
+            if (nums[L] + nums[R] > target) {
+                R--;
+            } else if (nums[L] + nums[R] < target) {
+                L++;
+            } else {
+                //如果L是起始位置，或者L不等于前一位
+                if (L == begin || nums[L] != nums[L - 1]) {
+                    List<Integer> l = new ArrayList<>();
+                    l.add(nums[L]);
+                    l.add(nums[R]);
+                    res.add(l);
+                }
+                L++;
+            }
+        }
+        return res;
+
+    }
+
+
+    public List<List<Integer>> twoSum(int[] nums, int begin, int target) {
+
+        List<List<Integer>> res = new ArrayList<>();
+
+        int L = begin;
+        int R = nums.length - 1;
+
+        while (L < R) {
+            if (nums[L] + nums[R] > target) {
+                R--;
+            } else if (nums[L] + nums[R] < target) {
+                L++;
+            } else {
+                if (L ==begin || nums[L] != nums[L - 1]) {
+                    List<Integer> l = new ArrayList<>();
+                    l.add(nums[L]);
+                    l.add(nums[R]);
+                    res.add(l);
+                    L++;
+                }
+            }
+        }
+
+        return res;
+    }
 
 }
 
