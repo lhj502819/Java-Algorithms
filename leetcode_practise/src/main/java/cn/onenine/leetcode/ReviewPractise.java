@@ -367,7 +367,7 @@ public class ReviewPractise {
 
         List<List<Integer>> res = new ArrayList<>();
 
-        if (nums[0] > 0){
+        if (nums[0] > 0) {
             return res;
         }
 
@@ -427,7 +427,7 @@ public class ReviewPractise {
             } else if (nums[L] + nums[R] < target) {
                 L++;
             } else {
-                if (L ==begin || nums[L] != nums[L - 1]) {
+                if (L == begin || nums[L] != nums[L - 1]) {
                     List<Integer> l = new ArrayList<>();
                     l.add(nums[L]);
                     l.add(nums[R]);
@@ -438,6 +438,51 @@ public class ReviewPractise {
         }
 
         return res;
+    }
+
+
+    public String reviewManacher(String s) {
+
+        if (s == null || s.length() == 0) {
+            return "";
+        }
+
+        char[] strC = manacherStr(s);
+
+        //回文中心坐标
+        int C = 0;
+        //回文右边界
+        int R = -1;
+        //回文左边界 = C * 2 - i
+        //保存每一个元素的回文半径
+        int maxLength = 0;
+        int maxMid = 0;
+        int[] arr = new int[s.length()];
+
+        for (int i = 0; i < strC.length; i++) {
+            //确定当前元素为中心的最小回文半径
+            arr[i] = R > i ? Math.min(arr[C * 2 - i], R - i) : 1;
+
+            while (i - arr[i] > -1 && i + arr[i] < strC.length) {
+                if (strC[i + arr[i]] == strC[i - arr[i]]) {
+                    arr[i] += 1;
+                } else {
+                    break;
+                }
+            }
+
+            if (i + arr[i] > R) {
+                R = i + arr[i];
+                C = i;
+            }
+            if (maxLength < arr[i]) {
+                maxMid = i;
+                maxLength = arr[i];
+            }
+        }
+
+        return new String(strC).substring(maxMid - arr[maxMid] ,maxMid + arr[maxMid] -1);
+
     }
 
 }

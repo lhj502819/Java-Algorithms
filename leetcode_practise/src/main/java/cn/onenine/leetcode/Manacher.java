@@ -1,8 +1,6 @@
 package cn.onenine.leetcode;
 
 /**
- * Description：
- *
  * @author li.hongjian
  * @email lhj502819@163.com
  * @since 2023/2/19 15:11
