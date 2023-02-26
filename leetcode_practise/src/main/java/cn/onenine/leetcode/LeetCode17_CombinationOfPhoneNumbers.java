@@ -12,7 +12,10 @@ import java.util.List;
  */
 public class LeetCode17_CombinationOfPhoneNumbers {
 
+
     public static char[][] phone = new char[][]{
+            {' '},
+            {' '},
             {'a', 'b', 'c'},//2
             {'d', 'e', 'f'},//3
             {'g', 'h', 'i'},//4
@@ -23,7 +26,9 @@ public class LeetCode17_CombinationOfPhoneNumbers {
             {'w', 'x', 'y', 'z'},//9
     };
 
-
+    /**
+     * 结果的长度肯定为digits.length()
+     */
     public List<String> letterCombinations(String digits) {
         List<String> ans = new ArrayList<>();
         if (digits == null || digits.length() == 0){
@@ -37,24 +42,25 @@ public class LeetCode17_CombinationOfPhoneNumbers {
         //3:def
         //那每个组合的结果长度都为2，如ad、ae、af;bd、be、bf;cd、ce、cf
         //需要从第一个数字的第一个单词开始遍历，每个单词都要再和下一个数字的所有单词组合，下一个数字的所有单词都要和下下一个数字的单词进行组合
-        //其实就是一个递归，每次递归到数字的长度截止
+        //其实就是一个递归，每次递归到数字的长度（digits.length()）截止
         char[] path = new char[digits.length()];
         process(chars, 0, path, ans);
         return ans;
     }
 
-    public void process(char[] digits, int index, char[] path, List<String> ans) {
-        if (index == digits.length){
+    public void process(char[] digits,int index,char[] path,List<String> ans){
+        if (digits.length == index){
             ans.add(String.valueOf(path));
-        }else{
-            char[] cs = phone[digits[index] - '2'];
-            for (char c : cs) {
-                path[index] = c;
-                process(digits,index +1,path,ans);
+        }else {
+            //获取到当前数字对应的所有字符
+            char[] c = phone[Integer.parseInt(String.valueOf(digits[index]))];
+            //遍历所有字符
+            for (char c1 : c) {
+                path[index] = c1;
+                //每次递归只是传入了index + 1，index没有变
+                process(digits,index + 1,path,ans);
             }
         }
-
-
     }
 
 }
