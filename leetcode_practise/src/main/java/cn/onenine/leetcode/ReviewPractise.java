@@ -481,7 +481,107 @@ public class ReviewPractise {
             }
         }
 
-        return new String(strC).substring(maxMid - arr[maxMid] ,maxMid + arr[maxMid] -1);
+        return new String(strC).substring(maxMid - arr[maxMid], maxMid + arr[maxMid] - 1);
+
+    }
+
+    static char[][] phone = new char[][]{
+            {},
+            {},
+            {'a', 'b', 'c'},//2
+            {'d', 'e', 'f'},//3
+            {'g', 'h', 'i'},//4
+            {'j', 'k', 'l'},//5
+            {'m', 'n', 'o'},//6
+            {'p', 'q', 'r', 's'},//7
+            {'t', 'u', 'v'},//8
+            {'w', 'x', 'y', 'z'},//9
+    };
+
+    /**
+     * leetcode17题，电话号码的字母组合
+     */
+    public List<String> letterCombinations(String digits) {
+        List<String> ans = new ArrayList<>();
+        if (digits == null || digits.length() == 0) {
+            return ans;
+        }
+
+
+        char[] chars = digits.toCharArray();
+        char[] path = new char[digits.length()];
+        process(chars, 0, path, ans);
+
+        return ans;
+    }
+
+    //245
+    //2 {a,b,c}
+    //4 {g,h,i}
+    public void process(char[] digits, int index, char[] path, List<String> ans) {
+        if (digits.length == index) {
+            ans.add(String.valueOf(path));
+        } else {
+            //获取到当前数字对应的所有字符
+            char[] c = phone[Integer.parseInt(String.valueOf(digits[index]))];
+            //遍历所有字符
+            for (char c1 : c) {
+                path[index] = c1;
+                //每次递归只是传入了index + 1，index没有变
+                process(digits, index + 1, path, ans);
+            }
+        }
+    }
+
+
+    /**
+     * Leetcode第18题，删除倒数第N个节点
+     */
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+
+        if (head == null) {
+            return head;
+        }
+        ListNode r = head;
+        ListNode c = head;
+        ListNode prev = null;
+        for (int i = 0; i < n; i++) {
+            if (c == null) {
+                return head;
+            }
+            c = c.next;
+        }
+        while (c != null) {
+            c = c.next;
+            prev = r;
+            r = r.next;
+        }
+        if (prev == null) {
+            return head.next;
+        }
+        prev.next = r.next;
+
+        return head;
+
+
+    }
+
+    /**
+     * leetcode21题，合并两个有序链表
+     */
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+
+        if (list1 == null || list2 == null) {
+            return list1 == null ? list2 : list1;
+        }
+
+        if (list1.val < list2.val) {
+            list1.next = mergeTwoLists(list1.next,list2);
+            return list1;
+        }else {
+            list2.next = mergeTwoLists(list1,list2.next);
+            return list2;
+        }
 
     }
 
