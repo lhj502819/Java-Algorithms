@@ -576,13 +576,146 @@ public class ReviewPractise {
         }
 
         if (list1.val < list2.val) {
-            list1.next = mergeTwoLists(list1.next,list2);
+            list1.next = mergeTwoLists(list1.next, list2);
             return list1;
-        }else {
-            list2.next = mergeTwoLists(list1,list2.next);
+        } else {
+            list2.next = mergeTwoLists(list1, list2.next);
             return list2;
         }
 
+    }
+
+
+    /**
+     * 括号生成
+     */
+    public List<String> generateParenthesis(int n) {
+        if (n == 0) {
+            return new ArrayList<>();
+        }
+
+        List<String> ans = new ArrayList<>();
+        process("", n, n, ans);
+        return ans;
+    }
+
+    public void process(String s, int left, int right, List<String> ans) {
+
+        if (left == 0 && right == 0) {
+            ans.add(s);
+        } else if (left > 0) {
+            process(s + "(", left - 1, right, ans);
+        } else if (right > left) {
+            process(s + ")", left, right - 1, ans);
+        }
+
+    }
+
+
+    public static class ListNodeComparable implements Comparator<ListNode> {
+
+        @Override
+        public int compare(ListNode o1, ListNode o2) {
+            return o1.val - o2.val;
+        }
+    }
+
+
+    public ListNode mergeKLists(ListNode[] lists) {
+
+        if (lists == null || lists.length == 0) {
+            return null;
+        }
+
+
+        PriorityQueue<ListNode> heap = new PriorityQueue<>(new ListNodeComparable());
+
+        Arrays.stream(lists).filter(Objects::nonNull).forEach(heap::offer);
+
+        if (heap.isEmpty()) {
+            return null;
+        }
+
+        ListNode head = heap.poll();
+        ListNode prev = head;
+        if (head.next != null) {
+            heap.offer(prev.next);
+        }
+
+        while (heap.poll() != null) {
+            ListNode node = heap.poll();
+            prev.next = node;
+            prev = node;
+            if (node.next != null) {
+                heap.offer(node.next);
+            }
+        }
+
+        return head;
+
+    }
+
+    /**
+     * 删除有序数组中的重复项
+     */
+    public int removeDuplicates(int[] nums) {
+
+        if (nums == null || nums.length == 0){
+            return 0;
+        }
+
+        if (nums.length < 2){
+            return nums.length;
+        }
+
+        //当前移动到的位置
+        int done = 0;
+        for (int i = 1; i < nums.length; i++) {
+            if ( nums[done] != nums[i]) {
+                nums[++done] = nums[i];
+            }
+        }
+        return done + 1;
+
+    }
+
+
+    public int removeElement(int[] nums, int val) {
+
+        if (nums == null || nums.length == 0){
+            return 0;
+        }
+
+        int done = -1;
+
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != val ){
+                nums[++done] = nums[i];
+            }
+        }
+        return done+1;
+    }
+
+    /**
+     * 找出字符串中第一个匹配项的下标
+     */
+    public int strStr(String haystack, String needle) {
+
+        if (haystack.length() < needle.length()){
+            return -1;
+        }
+
+        for (int i = 0; i < haystack.length(); i++) {
+            if (haystack.charAt(i) == needle.charAt(0) &&
+                    (haystack.length() - i >= needle.length())){
+
+                if (haystack.substring(i,i+needle.length()).equals(needle)){
+                    return i;
+                }
+            }
+        }
+
+        return -1;
     }
 
 }
